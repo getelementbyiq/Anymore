@@ -1,0 +1,40 @@
+# Docker Compose for local testing
+# Usage: docker-compose up --build
+
+version: '3.8'
+
+services:
+  ltx2:
+    build:
+      context: ..
+      dockerfile: runpod/Dockerfile
+    image: ltx2-runpod:latest
+    
+    # GPU support
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    
+    # Environment
+    environment:
+      - MODEL_DIR=/models
+      - HF_HOME=/models/huggingface
+      - PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+      - CUDA_VISIBLE_DEVICES=0
+    
+    # Mount local models directory
+    volumes:
+      - ./models:/models
+      - ./outputs:/outputs
+    
+    # Port for health checks / local testing
+    ports:
+      - "8000:8000"
+    
+    # Keep container running for debugging
+    stdin_open: true
+    tty: true

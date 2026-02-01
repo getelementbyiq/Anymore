@@ -1,0 +1,25 @@
+# LTX-2 RunPod Requirements
+# Note: Most dependencies are handled by uv sync from pyproject.toml
+# This file is for additional RunPod-specific dependencies
+
+# RunPod SDK
+runpod>=1.6.0
+
+# HuggingFace Hub for model downloads
+huggingface_hub>=0.20.0
+
+# HTTP requests
+requests>=2.31.0
+
+# Already included via ltx-core/ltx-pipelines but listed for clarity:
+# torch~=2.7
+# torchaudio
+# transformers~=4.57.0
+# safetensors
+# accelerate
+# einops
+# numpy
+# scipy>=1.14
+# av
+# tqdm
+# pillow
